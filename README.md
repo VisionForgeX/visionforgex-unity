@@ -264,20 +264,19 @@ game's calls to them and their answers back.
 - **Without Unity**, on every push: the C# tests on .NET; the Java bridge compiled against stand-ins of the Android
   SDK's API; the `.meta` files; the package's consistency (versions, bridge functions on every side); the
   `.unitypackage`.
-- **With Unity** (GameCI, Unity 6000.0.86f1), once the repository has a Unity licence (below): the tests in Unity, the
+- **With Unity** (GameCI, Unity 6000.0.86f1), once the repository has the Unity account's secrets (below): the tests in Unity, the
   demo built for Android on Next-Gen and on Google Mobile Ads 25.x, and for iOS. The iOS project is then compiled
   with Xcode on GitHub's Mac, with the pods.
 
-**The Unity licence** (Unity Personal is free). On a computer with Unity Hub:
+**The Unity licence** (Unity Personal is free). CI signs in to Unity with an account's email and password, takes a free
+Personal seat for each Unity job and gives it back when the job ends. No licence file is needed: on Unity 6 a `.ulf`
+file does not work in CI.
 
-1. Open Unity Hub and sign in with the Unity account CI should use.
-2. **Preferences → Licenses → Add → Get a free personal license.**
-3. Find the file Unity Hub wrote. It may be in a hidden folder:
-   - Windows: `C:\ProgramData\Unity\Unity_lic.ulf`
-   - Mac: `/Library/Application Support/Unity/Unity_lic.ulf`
-4. On GitHub, open this repository's **Settings → Secrets and variables → Actions → New repository secret**, and
-   add three secrets:
-   - `UNITY_LICENSE`: the whole text of `Unity_lic.ulf` (open it in a text editor, copy everything);
+1. Have a Unity account (unity.com) with a Personal licence: sign in once in Unity Hub and accept the free Personal
+   licence. **Two-step verification must be off for this account**, because CI cannot type a code. A separate
+   Unity account just for CI is the safest choice.
+2. On GitHub, open this repository's **Settings → Secrets and variables → Actions → New repository secret**, and add
+   two secrets:
    - `UNITY_EMAIL`: the Unity account's email;
    - `UNITY_PASSWORD`: its password.
 

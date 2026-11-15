@@ -1,9 +1,14 @@
 # Checks the plugin on GitHub's machines. Open the "Actions" tab of this repository to see the result.
 #
 # Without Unity (every push): the .meta files, the package's consistency, the Java bridge, the C# tests on .NET, the
-# .unitypackage. With Unity (GameCI), once the repository has the secrets UNITY_LICENSE, UNITY_EMAIL and
-# UNITY_PASSWORD (README → "The Unity licence"): the tests in Unity, the demo built for Android (Next-Gen and Google
-# Mobile Ads 25.x) and for iOS, and the iOS project compiled with Xcode. Without the secrets those jobs are skipped.
+# .unitypackage. With Unity (GameCI), once the repository has the secrets UNITY_EMAIL and UNITY_PASSWORD (README →
+# "The Unity licence"): the tests in Unity, the demo built for Android (Next-Gen and Google Mobile Ads 25.x) and for
+# iOS, and the iOS project compiled with Xcode. Without the secrets those jobs are skipped.
+#
+# Licence: a free Personal seat, asked for with the account's email and password by GameCI's CLI (pinned below) and
+# returned when each job ends. No .ulf file: on Unity 6 a .ulf fails in CI ("TimeStamp validation failed" through the
+# CLI, "serial invalid" through unity-builder 4.x). A Personal account has few seats, so the Unity jobs run one after
+# another, and a new push cancels the run before it.
 name: CI
 on:
   push:
@@ -13,12 +18,17 @@ on:
     types: [published]
   workflow_dispatch:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   checks: write
 
 env:
   UNITY_VERSION: 6000.0.86f1
+  GAMECI_CLI: v0.1.73
 
 jobs:
   checks:
@@ -53,11 +63,10 @@ jobs:
     steps:
       - id: check
         env:
-          L: ${{ secrets.UNITY_LICENSE }}
           E: ${{ secrets.UNITY_EMAIL }}
           P: ${{ secrets.UNITY_PASSWORD }}
         run: |
-          if [ -n "$L" ] && [ -n "$E" ] && [ -n "$P" ]; then echo "has=true" >> "$GITHUB_OUTPUT"
+          if [ -n "$E" ] && [ -n "$P" ]; then echo "has=true" >> "$GITHUB_OUTPUT"
           else echo "has=false" >> "$GITHUB_OUTPUT"; echo "::notice::No Unity licence secrets yet: the Unity jobs are skipped (README → The Unity licence)."; fi
 
   unity-tests:
@@ -74,16 +83,14 @@ jobs:
           path: Library
           key: Library-tests-${{ env.UNITY_VERSION }}-${{ hashFiles('Packages/**', 'Assets/**') }}
           restore-keys: Library-tests-${{ env.UNITY_VERSION }}-
-      # Pinned: unity-test-runner 4.4.0 (Sep 2026) moved licence activation into game-ci/cli, which a free Personal
-      # licence fails with "Code 400 TimeStamp validation failed". 4.3.2 is the maintainers' backport of the old path.
-      - uses: game-ci/unity-test-runner@v4.3.2
+      - uses: game-ci/unity-test-runner@v4.4.0
         id: tests
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
+          cliVersion: ${{ env.GAMECI_CLI }}
           testMode: EditMode
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: Unity EditMode tests
@@ -93,12 +100,13 @@ jobs:
 
   android:
     name: Android build (${{ matrix.engine }})
-    needs: [checks, licence]
-    if: needs.licence.outputs.has == 'true'
+    needs: [checks, licence, unity-tests]
+    if: ${{ !cancelled() && needs.licence.outputs.has == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         engine: [nextgen, gma]
     steps:
@@ -112,13 +120,13 @@ jobs:
           path: Library
           key: Library-Android-${{ env.UNITY_VERSION }}-${{ hashFiles('Packages/**', 'Assets/**') }}
           restore-keys: Library-Android-${{ env.UNITY_VERSION }}-
-      - uses: game-ci/unity-builder@v4.8.2
+      - uses: game-ci/unity-builder@v6.0.0
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
+          cliVersion: ${{ env.GAMECI_CLI }}
           targetPlatform: Android
           buildMethod: VfxCiBuild.Android
           customParameters: -vfxEngine ${{ matrix.engine }}
@@ -139,8 +147,8 @@ jobs:
 
   ios-project:
     name: iOS build (the Xcode project)
-    needs: [checks, licence]
-    if: needs.licence.outputs.has == 'true'
+    needs: [checks, licence, android]
+    if: ${{ !cancelled() && needs.licence.outputs.has == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -153,13 +161,13 @@ jobs:
           path: Library
           key: Library-iOS-${{ env.UNITY_VERSION }}-${{ hashFiles('Packages/**', 'Assets/**') }}
           restore-keys: Library-iOS-${{ env.UNITY_VERSION }}-
-      - uses: game-ci/unity-builder@v4.8.2
+      - uses: game-ci/unity-builder@v6.0.0
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
+          cliVersion: ${{ env.GAMECI_CLI }}
           targetPlatform: iOS
           buildMethod: VfxCiBuild.Ios
           buildName: VisionForgeXDemo
