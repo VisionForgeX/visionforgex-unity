@@ -1,0 +1,25 @@
+{
+    "name": "VisionForgeX.Ads.Tests",
+    "rootNamespace": "VfxAds.Tests",
+    "references": [
+        "VisionForgeX.Ads",
+        "VisionForgeX.Ads.Editor",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,1 @@
+package com.visionforgex.ads; public enum VfxFormat { BANNER, INTERSTITIAL, REWARDED, REWARDED_INTERSTITIAL, APP_OPEN, NATIVE; public String getWire(){return "";} public static VfxFormat fromWire(String s){return null;} }

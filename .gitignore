@@ -1,0 +1,33 @@
+# Unity's own folders (made on every machine)
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/artifacts/
+*.csproj
+!/ci/dotnet/*.csproj
+*.sln
+*.userprefs
+.DS_Store
+
+# made by CI or by opening the project: the sample copied in, the settings and Gradle templates of the demo build
+/Assets/Samples/
+/Assets/Samples.meta
+/Assets/VisionForgeX/
+/Assets/VisionForgeX.meta
+/Assets/Plugins/
+/Assets/Plugins.meta
+/Assets/ExternalDependencyManager/
+/Assets/ExternalDependencyManager.meta
+/ProjectSettings/*
+!/ProjectSettings/ProjectVersion.txt
+/Packages/packages-lock.json
+
+# .NET checks (ci/dotnet)
+/ci/dotnet/bin/
+/ci/dotnet/obj/
+/ci/java/out/

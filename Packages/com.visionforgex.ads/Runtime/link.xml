@@ -1,0 +1,4 @@
+<!-- Keeps the plugin whole under IL2CPP's code stripping: the native bridges call into it by name. -->
+<linker>
+  <assembly fullname="VisionForgeX.Ads" preserve="all" />
+</linker>

@@ -1,0 +1,40 @@
+{
+  "name": "com.visionforgex.ads",
+  "version": "1.0.0",
+  "displayName": "VisionForgeX Ads",
+  "description": "Google Ad Manager demand for Unity games through VisionForgeX: rewarded, interstitial, rewarded interstitial, app open and banner ads by placement name, with every decision (what to request, pacing, floors, refresh, consent, experiments) made on apps.visionforgex.com. A thin layer over the VisionForgeX Android SDK 1.2.0 (Google's Next-Gen SDK or Google Mobile Ads 25.x) and iOS SDK 1.2.0 (Google Mobile Ads 13). Placeholder ads in the Editor.",
+  "unity": "6000.0",
+  "documentationUrl": "https://github.com/VisionForgeX/visionforgex-unity#readme",
+  "changelogUrl": "https://github.com/VisionForgeX/visionforgex-unity/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/VisionForgeX/visionforgex-unity/blob/main/LICENSE",
+  "keywords": [
+    "ads",
+    "admob",
+    "ad manager",
+    "monetization",
+    "rewarded",
+    "interstitial",
+    "banner",
+    "visionforgex"
+  ],
+  "author": {
+    "name": "VisionForgeX",
+    "email": "support@visionforgex.com",
+    "url": "https://apps.visionforgex.com"
+  },
+  "dependencies": {
+    "com.unity.external-dependency-manager": "2.1.1",
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0"
+  },
+  "samples": [
+    {
+      "displayName": "Demo scene",
+      "description": "A rewarded button, an interstitial between levels, a bottom banner, privacy options and the debug panel. Runs in the Editor with placeholder ads, and on a device with Google's demo ads (test mode) or the platform's.",
+      "path": "Samples~/Demo"
+    }
+  ],
+  "license": "Apache-2.0"
+}

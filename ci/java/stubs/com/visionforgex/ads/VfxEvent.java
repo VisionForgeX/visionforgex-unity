@@ -1,0 +1,1 @@
+package com.visionforgex.ads; import java.util.Map; public final class VfxEvent { public String getType(){return "";} public String getPlacement(){return "";} public VfxFormat getFormat(){return null;} public Map<String, Object> getDetails(){return null;} public long getTime(){return 0;} }

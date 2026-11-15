@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The plugin's C# that needs no Unity, with its tests, on plain .NET. See README.md in this folder. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>VisionForgeX.Ads.Tests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="UnityStubs.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/VfxTypes.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/VisionForgeX.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/VfxFullScreen.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/VfxBanner.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/VfxSettings.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/Internal/VfxJson.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/Internal/VfxMainThread.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/Internal/IVfxBridge.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Runtime/Internal/VfxStandIn.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Editor/VfxNativeSetup.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Editor/VfxValidation.cs" />
+    <Compile Include="../../Packages/com.visionforgex.ads/Tests/Editor/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+</Project>

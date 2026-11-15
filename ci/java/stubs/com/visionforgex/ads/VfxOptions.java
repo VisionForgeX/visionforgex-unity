@@ -1,0 +1,3 @@
+package com.visionforgex.ads; import java.util.List;
+public final class VfxOptions { public static VfxOptions defaults(){return null;}
+ public static final class Builder { public Builder testDeviceIds(List<String> l){return this;} public Builder logLevel(VfxLogLevel l){return this;} public Builder consentDebugEea(boolean on, List<String> ids){return this;} public Builder baseUrl(String u){return this;} public Builder autoPreload(boolean b){return this;} public Builder settingsForTesting(String j){return this;} public Builder googleDemoAds(){return this;} public VfxOptions build(){return null;} } }
