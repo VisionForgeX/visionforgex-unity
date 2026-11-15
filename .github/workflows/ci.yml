@@ -74,7 +74,9 @@ jobs:
           path: Library
           key: Library-tests-${{ env.UNITY_VERSION }}-${{ hashFiles('Packages/**', 'Assets/**') }}
           restore-keys: Library-tests-${{ env.UNITY_VERSION }}-
-      - uses: game-ci/unity-test-runner@v4
+      # Pinned: unity-test-runner 4.4.0 (Sep 2026) moved licence activation into game-ci/cli, which a free Personal
+      # licence fails with "Code 400 TimeStamp validation failed". 4.3.2 is the maintainers' backport of the old path.
+      - uses: game-ci/unity-test-runner@v4.3.2
         id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -110,7 +112,7 @@ jobs:
           path: Library
           key: Library-Android-${{ env.UNITY_VERSION }}-${{ hashFiles('Packages/**', 'Assets/**') }}
           restore-keys: Library-Android-${{ env.UNITY_VERSION }}-
-      - uses: game-ci/unity-builder@v4
+      - uses: game-ci/unity-builder@v4.8.2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -151,7 +153,7 @@ jobs:
           path: Library
           key: Library-iOS-${{ env.UNITY_VERSION }}-${{ hashFiles('Packages/**', 'Assets/**') }}
           restore-keys: Library-iOS-${{ env.UNITY_VERSION }}-
-      - uses: game-ci/unity-builder@v4
+      - uses: game-ci/unity-builder@v4.8.2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}

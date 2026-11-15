@@ -28,3 +28,5 @@ platform.
 - Written without Unity, Xcode or an Android SDK: the C# layer was compiled and tested on .NET, and the Java bridge was
   compiled against stand-ins of the SDK's API. The first GameCI run is the first Unity compile and the first Android
   and iOS build.
+- CI pins GameCI's actions (`unity-test-runner` 4.3.2, `unity-builder` 4.8.2): the test runner's 4.4.0 rejects a
+  free Personal licence ("TimeStamp validation failed").
