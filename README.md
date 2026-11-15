@@ -264,7 +264,7 @@ game's calls to them and their answers back.
 - **Without Unity**, on every push: the C# tests on .NET; the Java bridge compiled against stand-ins of the Android
   SDK's API; the `.meta` files; the package's consistency (versions, bridge functions on every side); the
   `.unitypackage`.
-- **With Unity** (GameCI, Unity 6000.0.86f1), once the repository has the Unity account's secrets (below): the tests in Unity, the
+- **With Unity** (GameCI, Unity 6000.3.28f1), once the repository has the Unity account's secrets (below): the tests in Unity, the
   demo built for Android on Next-Gen and on Google Mobile Ads 25.x, and for iOS. The iOS project is then compiled
   with Xcode on GitHub's Mac, with the pods.
 

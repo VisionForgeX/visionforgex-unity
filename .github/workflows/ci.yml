@@ -27,7 +27,9 @@ permissions:
   checks: write
 
 env:
-  UNITY_VERSION: 6000.0.86f1
+  # The CI project runs on Unity 6.3 LTS: 6000.0 builds past its LTS window are "Extended LTS", which a Personal
+  # licence cannot open. The package itself still supports Unity 6000.0 and newer.
+  UNITY_VERSION: 6000.3.28f1
   GAMECI_CLI: v0.1.73
 
 jobs:

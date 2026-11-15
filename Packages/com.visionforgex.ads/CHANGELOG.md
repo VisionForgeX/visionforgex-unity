@@ -30,4 +30,5 @@ platform.
   and iOS build.
 - CI activates Unity with a Personal seat from the account's email and password (GameCI CLI 0.1.73 through
   `unity-test-runner` 4.4.0 and `unity-builder` 6.0.0), with no `.ulf`: on Unity 6 a `.ulf` failed in CI. The Unity
-  jobs run one after another (a Personal account has few seats).
+  jobs run one after another (a Personal account has few seats). CI's project is on Unity 6.3 LTS (6000.3.28f1):
+  late 6000.0 builds are Extended LTS, which a Personal licence cannot open.
