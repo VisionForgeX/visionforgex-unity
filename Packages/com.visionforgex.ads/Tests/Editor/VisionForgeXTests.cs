@@ -127,6 +127,17 @@ namespace VfxAds.Tests
         }
 
         [Test]
+        public void IsReadyAsksTheNativeSdkOnlyOnceStarted()
+        {
+            _b.Ready = true;
+            Assert.IsFalse(VisionForgeX.IsReady, "not started: not ready, whatever the native side says");
+            VisionForgeX.Initialize("vfx_key", null, null);
+            Assert.IsTrue(VisionForgeX.IsReady);
+            _b.Ready = false;
+            Assert.IsFalse(VisionForgeX.IsReady);
+        }
+
+        [Test]
         public void InitializingAgainStartsNothingNewButStillAnswers()
         {
             VfxStatus a = null, b = null, c = null;

@@ -21,7 +21,7 @@ platform.
   and Info.plist gets the App ID, Google's 50 SKAdNetwork identifiers and the tracking question's text.
 - **Package:** `com.visionforgex.ads`, installable by Git URL; a `.unitypackage` attached to releases. Depends on
   Unity's External Dependency Manager 2.1.1. Needs Unity 6 (6000.0) or newer. The demo scene is a sample.
-- **Tests:** 54 EditMode tests of the C# layer against a mock bridge and the stand-in: callbacks and their order,
+- **Tests:** 55 EditMode tests of the C# layer against a mock bridge and the stand-in: callbacks and their order,
   main-thread delivery, reason strings, placement names, banners, JSON, the project check, the dependency file,
   Podfile, manifest and SKAdNetwork steps.
 - **Not in 1.0.0:** native ads; Swift Package Manager for iOS (CocoaPods only).
@@ -31,4 +31,5 @@ platform.
 - CI activates Unity with a Personal seat from the account's email and password (GameCI CLI 0.1.73 through
   `unity-test-runner` 4.4.0 and `unity-builder` 6.0.0), with no `.ulf`: on Unity 6 a `.ulf` failed in CI. The Unity
   jobs run one after another (a Personal account has few seats). CI's project is on Unity 6.3 LTS (6000.3.28f1):
-  late 6000.0 builds are Extended LTS, which a Personal licence cannot open.
+  late 6000.0 builds are Extended LTS, which a Personal licence cannot open. CI's build script prints GameCI's
+  "Build succeeded!" marker; Android's minimum API is never set below Unity's own (25 in Unity 6.3).

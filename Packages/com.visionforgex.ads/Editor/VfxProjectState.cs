@@ -95,7 +95,7 @@ namespace VfxAds.EditorTools
             {
                 case VfxFix.CreateSettings: VfxSettingsStore.LoadOrCreate(); break;
                 case VfxFix.OpenSettings: VfxSettingsWindow.Open(); break;
-                case VfxFix.SetAndroidMinSdk24: PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24; break;
+                case VfxFix.SetAndroidMinSdk24: PlayerSettings.Android.minSdkVersion = (AndroidSdkVersions)24;   // never below Unity's own minimum: offered only when lower break;
                 case VfxFix.SetAndroidTargetSdk35: PlayerSettings.Android.targetSdkVersion = (AndroidSdkVersions)35; break;
                 case VfxFix.SetIosMinVersion13: PlayerSettings.iOS.targetOSVersionString = "13.0"; break;
                 case VfxFix.InstallEdm: UnityEditor.PackageManager.Client.Add(EdmPackage + "@" + EdmVersion); break;

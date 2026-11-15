@@ -38,7 +38,8 @@ public static class VfxCiBuild
         PlayerSettings.companyName = "VisionForgeX";
         PlayerSettings.productName = "VisionForgeX Demo";
         PlayerSettings.SetApplicationIdentifier(target == BuildTarget.iOS ? NamedBuildTarget.iOS : NamedBuildTarget.Android, "com.visionforgex.unitydemo");
-        PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;
+        // 24 is the SDKs' minimum; Unity 6.3's own is 25, so keep whichever is higher.
+        PlayerSettings.Android.minSdkVersion = (AndroidSdkVersions)Math.Max(24, (int)PlayerSettings.Android.minSdkVersion);
         PlayerSettings.Android.targetSdkVersion = (AndroidSdkVersions)35;
         PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
         PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
@@ -96,7 +97,10 @@ public static class VfxCiBuild
                 options = BuildOptions.Development,
             });
             Debug.Log("[VisionForgeX CI] " + target + " build: " + report.summary.result + ", " + report.summary.totalErrors + " errors, at " + path);
-            if (report.summary.result != BuildResult.Succeeded) EditorApplication.Exit(1);
+            if (report.summary.result != BuildResult.Succeeded) { EditorApplication.Exit(1); return; }
+            // GameCI's CLI counts a build as passed only when its log has these words (its own build script prints them).
+            Console.WriteLine("Build succeeded!");
+            Debug.Log("[VisionForgeX CI] Build succeeded!");
         }
         catch (Exception e)
         {
