@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 (19 Nov 2026)
+
+On the native SDKs **1.3.0** (Android `vfx-ads-nextgen` / `vfx-ads` 1.3.0 from JitPack; iOS `VisionForgeX` 1.3.0, the Podfile
+line written at `:tag => '1.3.0'`). What it adds: when VisionForgeX switches it on for the game, each impression's revenue
+goes to AppsFlyer (6.15+) or Adjust if the game has it, with no C# to write. The C# API is unchanged; a game that has neither
+tool behaves exactly as with 1.0.0. Install: `…?path=/Packages/com.visionforgex.ads#1.0.1`.
+
 ## 1.0.0 (15 Nov 2026)
 
 First version: VisionForgeX for Unity games, a thin layer over the released native SDKs. Every decision is made on the

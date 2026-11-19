@@ -457,14 +457,14 @@ namespace VfxAds.Tests
             VisionForgeX.PreloadAll();
             CollectionAssert.AreEqual(new[] { "inspector", "debugPanel", "flush", "muted:True", "preloadAll" }, _b.Calls.Skip(1).ToArray());
             Assert.AreEqual("platform", VisionForgeX.SettingsSource());
-            Assert.AreEqual("1.2.0", VisionForgeX.NativeVersion);
+            Assert.AreEqual("1.3.0", VisionForgeX.NativeVersion);
         }
 
         [Test]
         public void ThePluginIsBuiltOnTheReleasedNativeSdks()
         {
-            Assert.AreEqual("1.2.0", VisionForgeX.AndroidSdkVersion);
-            Assert.AreEqual("1.2.0", VisionForgeX.IosSdkVersion);
+            Assert.AreEqual("1.3.0", VisionForgeX.AndroidSdkVersion);
+            Assert.AreEqual("1.3.0", VisionForgeX.IosSdkVersion);
             Assert.That(VisionForgeX.Version, Does.Match(@"^\d+\.\d+\.\d+$"));
         }
 

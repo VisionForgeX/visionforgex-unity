@@ -35,7 +35,7 @@ namespace VfxAds.Tests
         public bool OpenDebugPanel() { Calls.Add("debugPanel"); return true; }
         public string SettingsSource() => "platform";
         public void Flush() => Calls.Add("flush");
-        public string NativeVersion() => "1.2.0";
+        public string NativeVersion() => "1.3.0";
         public void BannerCreate(int id, string placement, int position) => Calls.Add("banner+:" + id + ":" + placement + ":" + position);
         public void BannerSetVisible(int id, bool visible) => Calls.Add("banner" + (visible ? "Show" : "Hide") + ":" + id);
         public void BannerDestroy(int id) => Calls.Add("banner-:" + id);

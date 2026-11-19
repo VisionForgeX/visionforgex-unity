@@ -14,43 +14,43 @@ namespace VfxAds.Tests
         [Test]
         public void TheDependencyFileNamesTheChosenAndroidSdkFromJitPack()
         {
-            var next = VfxNativeSetup.DependenciesXml(VfxAndroidEngine.NextGen, "1.2.0", "1.2.0");
-            var gma = VfxNativeSetup.DependenciesXml(VfxAndroidEngine.GoogleMobileAds, "1.2.0", "1.2.0");
+            var next = VfxNativeSetup.DependenciesXml(VfxAndroidEngine.NextGen, "1.3.0", "1.3.0");
+            var gma = VfxNativeSetup.DependenciesXml(VfxAndroidEngine.GoogleMobileAds, "1.3.0", "1.3.0");
             var doc = new XmlDocument();
             doc.LoadXml(next);
             var spec = doc.SelectSingleNode("/dependencies/androidPackages/androidPackage/@spec").Value;
-            Assert.AreEqual("com.github.VisionForgeX.visionforgex-android-sdk:vfx-ads-nextgen:1.2.0", spec);
+            Assert.AreEqual("com.github.VisionForgeX.visionforgex-android-sdk:vfx-ads-nextgen:1.3.0", spec);
             Assert.AreEqual("https://jitpack.io", doc.SelectSingleNode("/dependencies/androidPackages/androidPackage/repositories/repository").InnerText);
-            StringAssert.Contains("visionforgex-android-sdk:vfx-ads:1.2.0\"", gma);
+            StringAssert.Contains("visionforgex-android-sdk:vfx-ads:1.3.0\"", gma);
             StringAssert.DoesNotContain("nextgen", gma);
             var pods = doc.SelectNodes("/dependencies/iosPods/iosPod").Cast<XmlElement>().Select(e => e.GetAttribute("name") + " " + e.GetAttribute("version")).ToArray();
-            CollectionAssert.AreEqual(new[] { "VisionForgeX 1.2.0", "Google-Mobile-Ads-SDK ~> 13.12", "GoogleUserMessagingPlatform ~> 2.7" }, pods);
+            CollectionAssert.AreEqual(new[] { "VisionForgeX 1.3.0", "Google-Mobile-Ads-SDK ~> 13.12", "GoogleUserMessagingPlatform ~> 2.7" }, pods);
         }
 
         // ------------------------------------------------------------------ the Podfile
 
-        const string EdmPodfile = "source 'https://cdn.cocoapods.org/'\nplatform :ios, '13.0'\n\ntarget 'UnityFramework' do\n  pod 'Google-Mobile-Ads-SDK', '~> 13.12'\n  pod 'VisionForgeX', '1.2.0'\nend\ntarget 'Unity-iPhone' do\nend\nuse_frameworks! :linkage => :static\n";
+        const string EdmPodfile = "source 'https://cdn.cocoapods.org/'\nplatform :ios, '13.0'\n\ntarget 'UnityFramework' do\n  pod 'Google-Mobile-Ads-SDK', '~> 13.12'\n  pod 'VisionForgeX', '1.3.0'\nend\ntarget 'Unity-iPhone' do\nend\nuse_frameworks! :linkage => :static\n";
 
         [Test]
         public void ThePodfileTakesThePodFromGitHubAtItsTag()
         {
-            var p = VfxNativeSetup.PatchPodfile(EdmPodfile, "1.2.0");
-            StringAssert.Contains("  pod 'VisionForgeX', :git => 'https://github.com/VisionForgeX/visionforgex-ios-sdk.git', :tag => '1.2.0'\n", p);
-            StringAssert.DoesNotContain("pod 'VisionForgeX', '1.2.0'", p);
+            var p = VfxNativeSetup.PatchPodfile(EdmPodfile, "1.3.0");
+            StringAssert.Contains("  pod 'VisionForgeX', :git => 'https://github.com/VisionForgeX/visionforgex-ios-sdk.git', :tag => '1.3.0'\n", p);
+            StringAssert.DoesNotContain("pod 'VisionForgeX', '1.3.0'", p);
             Assert.AreEqual(1, p.Split('\n').Count(l => l.Contains("'VisionForgeX'")));
-            Assert.AreEqual(p, VfxNativeSetup.PatchPodfile(p, "1.2.0"), "a second run changes nothing");
+            Assert.AreEqual(p, VfxNativeSetup.PatchPodfile(p, "1.3.0"), "a second run changes nothing");
             StringAssert.Contains("pod 'Google-Mobile-Ads-SDK', '~> 13.12'", p);
         }
 
         [Test]
         public void WithoutTheResolversLineItGoesIntoTheFrameworkTarget()
         {
-            var without = EdmPodfile.Replace("  pod 'VisionForgeX', '1.2.0'\n", "");
-            var p = VfxNativeSetup.PatchPodfile(without, "1.2.0");
+            var without = EdmPodfile.Replace("  pod 'VisionForgeX', '1.3.0'\n", "");
+            var p = VfxNativeSetup.PatchPodfile(without, "1.3.0");
             var lines = p.Split('\n').ToList();
             int t = lines.IndexOf("target 'UnityFramework' do");
-            Assert.AreEqual("  pod 'VisionForgeX', :git => 'https://github.com/VisionForgeX/visionforgex-ios-sdk.git', :tag => '1.2.0'", lines[t + 1]);
-            var bare = VfxNativeSetup.PatchPodfile("platform :ios, '13.0'\n", "1.2.0");
+            Assert.AreEqual("  pod 'VisionForgeX', :git => 'https://github.com/VisionForgeX/visionforgex-ios-sdk.git', :tag => '1.3.0'", lines[t + 1]);
+            var bare = VfxNativeSetup.PatchPodfile("platform :ios, '13.0'\n", "1.3.0");
             StringAssert.Contains("target 'UnityFramework' do\n  pod 'VisionForgeX', :git", bare);
             StringAssert.EndsWith("end\n", bare);
         }

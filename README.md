@@ -6,9 +6,9 @@ on apps.visionforgex.com and can change without a game update: what each placeme
 price floors, banner refresh, consent and experiments.
 
 - **Formats:** rewarded, interstitial, rewarded interstitial, app open, and banners (top or bottom, inside the safe area).
-- **Android:** runs on the VisionForgeX Android SDK 1.2.0 with Google's **GMA Next-Gen SDK** (Google's preferred
+- **Android:** runs on the VisionForgeX Android SDK 1.3.0 with Google's **GMA Next-Gen SDK** (Google's preferred
   Android SDK). You can choose Google Mobile Ads 25.x instead (`vfx-ads`); the game's code is the same.
-- **iOS:** runs on the VisionForgeX iOS SDK 1.2.0 (Google Mobile Ads 13).
+- **iOS:** runs on the VisionForgeX iOS SDK 1.3.0 (Google Mobile Ads 13).
 - **In the Editor**, Play mode shows placeholder ads and sends the game the same callbacks as a phone, in the same order.
 - **Callbacks always arrive on Unity's main thread.**
 
@@ -34,13 +34,13 @@ You need:
 In Unity: **Window → Package Manager → the + button → Add package from git URL…**, paste this and press **Add**:
 
 ```
-https://github.com/VisionForgeX/visionforgex-unity.git?path=/Packages/com.visionforgex.ads#1.0.0
+https://github.com/VisionForgeX/visionforgex-unity.git?path=/Packages/com.visionforgex.ads#1.0.1
 ```
 
-The `#1.0.0` at the end is the version. The Package Manager also installs Unity's **External Dependency Manager**,
+The `#1.0.1` at the end is the version. The Package Manager also installs Unity's **External Dependency Manager**,
 which adds the VisionForgeX and Google SDKs to your Android and iOS builds.
 
-*No Package Manager?* Download `VisionForgeX-1.0.0.unitypackage` from this repository's
+*No Package Manager?* Download `VisionForgeX-1.0.1.unitypackage` from this repository's
 [Releases](https://github.com/VisionForgeX/visionforgex-unity/releases), then **Assets → Import Package → Custom
 Package**. Install **External Dependency Manager** from the Package Manager's *Unity Registry* too.
 
@@ -173,7 +173,7 @@ requested as rewarded when the callbacks have `OnReward`, and as an interstitial
 privacyButton.SetActive(VisionForgeX.IsPrivacyOptionsRequired);
 VisionForgeX.ShowPrivacyOptions(error => { });
 
-// what each impression earned, for your analytics (Firebase, AppsFlyer, Adjust…)
+// what each impression earned, for your own analytics (AppsFlyer and Adjust get it without this: see below)
 VisionForgeX.OnRevenue += r => Analytics.LogAdRevenue(r.Value, r.Currency);
 
 // every ad event (req, fill, nofill, show, click, close, fail, reward, paid, capped)
@@ -204,15 +204,23 @@ your game handles it.
 The sample (**Package Manager → VisionForgeX Ads → Samples → Demo scene → Import**) is a tiny game that uses all of
 this: a rewarded button, an interstitial between levels, a bottom banner, privacy options and the debug panel.
 
+### Ad revenue in AppsFlyer or Adjust
+
+When VisionForgeX switches it on for your game, each impression's revenue is sent to the attribution tool the game
+already runs, with no C# to write: **AppsFlyer** 6.15 or newer (its Unity plugin) or **Adjust** (its Unity plugin). Add and
+start that tool as its own guide says; VisionForgeX finds it in the game and never starts or sets it up. Not in the game:
+nothing is sent. Test mode and demo ads are never sent. Don't also send `OnRevenue` to the same tool from your own code, or
+each impression counts twice.
+
 ## 7. Build
 
 **Android:** build as usual. The plugin writes Google's App ID into the manifest, and the External Dependency
-Manager adds `com.github.VisionForgeX.visionforgex-android-sdk:vfx-ads-nextgen:1.2.0` (or `vfx-ads:1.2.0`) from
+Manager adds `com.github.VisionForgeX.visionforgex-android-sdk:vfx-ads-nextgen:1.3.0` (or `vfx-ads:1.3.0`) from
 JitPack. Next-Gen needs **Target API Level 35**; the project check offers the fix.
 
 **iOS:** build the Xcode project from Unity. The plugin then:
 
-- takes the VisionForgeX iOS SDK from GitHub: `pod 'VisionForgeX', :git => 'https://github.com/VisionForgeX/visionforgex-ios-sdk.git', :tag => '1.2.0'`
+- takes the VisionForgeX iOS SDK from GitHub: `pod 'VisionForgeX', :git => 'https://github.com/VisionForgeX/visionforgex-ios-sdk.git', :tag => '1.3.0'`
   goes into the Podfile, because it is not on CocoaPods' public list yet;
 - turns Swift on for its bridge;
 - adds `GADApplicationIdentifier`, Google's SKAdNetwork identifiers and, if you wrote one, the tracking question to
@@ -238,8 +246,8 @@ Still stuck: write to **support@visionforgex.com** with the debug panel's screen
 ## How it works
 
 ```
-your game ──C#──▶ VisionForgeX (this plugin) ──┬─ Android: VfxUnityBridge.java ─▶ VisionForgeX Android SDK 1.2.0 ─▶ Google
-                                               ├─ iOS: VfxUnityBridge.mm/.swift ─▶ VisionForgeX iOS SDK 1.2.0 ─────▶ Google
+your game ──C#──▶ VisionForgeX (this plugin) ──┬─ Android: VfxUnityBridge.java ─▶ VisionForgeX Android SDK 1.3.0 ─▶ Google
+                                               ├─ iOS: VfxUnityBridge.mm/.swift ─▶ VisionForgeX iOS SDK 1.3.0 ─────▶ Google
                                                └─ Editor: the stand-in (placeholder ads)
                          ◀── callbacks, on Unity's main thread ──
 ```

@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Unity's side of the VisionForgeX Android SDK (vfx-ads-nextgen or vfx-ads 1.2.0): calls in from C#
+ * Unity's side of the VisionForgeX Android SDK (vfx-ads-nextgen or vfx-ads 1.3.0): calls in from C#
  * (VfxAndroidBridge.cs), JSON messages out through {@link VfxUnityListener}. No decision is made here: it only
  * passes calls to the SDK and its answers back. Everything that touches a view runs on Android's main thread.
  */

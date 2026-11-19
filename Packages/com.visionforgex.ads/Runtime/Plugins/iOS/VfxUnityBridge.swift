@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import VisionForgeX
 
-/// Unity's side of the VisionForgeX iOS SDK 1.2.0: called by VfxUnityBridge.mm (the C functions C# calls), answers
+/// Unity's side of the VisionForgeX iOS SDK 1.3.0: called by VfxUnityBridge.mm (the C functions C# calls), answers
 /// sent back as JSON through `onMessage` (the keys are listed in IVfxBridge.cs). No decision is made here: it only
 /// passes calls to the SDK and its answers back. Every call arrives on the main thread (Unity's on iOS).
 @objc(VfxUnityBridgeSwift)

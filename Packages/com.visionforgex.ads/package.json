@@ -1,6 +1,6 @@
 {
   "name": "com.visionforgex.ads",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "VisionForgeX Ads",
   "description": "Google Ad Manager demand for Unity games through VisionForgeX: rewarded, interstitial, rewarded interstitial, app open and banner ads by placement name, with every decision (what to request, pacing, floors, refresh, consent, experiments) made on apps.visionforgex.com. A thin layer over the VisionForgeX Android SDK 1.2.0 (Google's Next-Gen SDK or Google Mobile Ads 25.x) and iOS SDK 1.2.0 (Google Mobile Ads 13). Placeholder ads in the Editor.",
   "unity": "6000.0",

@@ -24,11 +24,11 @@ namespace VfxAds
     public static partial class VisionForgeX
     {
         /// <summary>This plugin's version.</summary>
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.1";
 
         /// <summary>The native SDKs this version is built on.</summary>
-        public const string AndroidSdkVersion = "1.2.0";
-        public const string IosSdkVersion = "1.2.0";
+        public const string AndroidSdkVersion = "1.3.0";
+        public const string IosSdkVersion = "1.3.0";
 
         static readonly Regex PlacementName = new Regex("^[a-z0-9_]{1,40}$");
         static readonly Regex KeyName = new Regex("^[a-z0-9_]{1,20}$");
